@@ -29,7 +29,13 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();
-        User user = userService.selectByUsername(username);
+        User user = null;
+        try {
+            user = userService.selectByUsername(username);
+        } catch (Exception e){
+        e.printStackTrace();
+    }
+
         if(user == null) {
             return null;
         }
